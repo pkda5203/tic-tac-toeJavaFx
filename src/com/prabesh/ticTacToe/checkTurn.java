@@ -10,18 +10,22 @@ package com.prabesh.ticTacToe;
  * @author prabeshkhadka
  */
 public class checkTurn {
-    
+   
+    //static boolean variable to keep track of whoose turn it is
    public static boolean xTurn;
    
-   public checkTurn(){
+   public checkTurn()
+   {
        
    }
    
+   //getter
    public boolean getTurn()
    {
        return xTurn;
    }
     
+   //setter
    protected void setTurn(boolean x)
    {
        xTurn=x;
