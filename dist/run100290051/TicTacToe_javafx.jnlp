@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="TicTacToe_javafx.jnlp">
+    <information>
+        <title>TicTacToe_javafx</title>
+        <vendor>prabeshkhadka</vendor>
+        <description>null</description>
+        <offline-allowed/>
+    </information>
+    <update check="always"/>
+    <resources>
+        <j2se version="10.0.2+" href="http://java.sun.com/products/autodl/j2se"/>
+        <jar href="TicTacToe_javafx.jar" size="303392" download="eager"/>
+    </resources>
+    <jfx:javafx-desc width="800" height="600" main-class="com.prabesh.ticTacToe.ticTacToe_javafx" name="ticTacToe_javafx"/>
+</jnlp>
+
