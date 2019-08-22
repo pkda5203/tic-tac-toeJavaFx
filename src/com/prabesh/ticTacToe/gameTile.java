@@ -24,6 +24,7 @@ public class gameTile extends StackPane
     private Text draw = new Text();
     private boolean drawn=false;
     public static boolean playable = true;
+    public static int playCount = 0;
     
     public gameTile(){
 
@@ -46,7 +47,9 @@ public class gameTile extends StackPane
                     //change to o turn and prevent redraw   
                     turn.setTurn(false);
                     drawn=true;
+                    //check if game won
                     ticTacToe_javafx.checkState();
+                    playCount ++;
                 }
                 //if O turn
                 else
@@ -55,7 +58,9 @@ public class gameTile extends StackPane
                     //chane to x turn and prevent redraw
                     turn.setTurn(true);
                     drawn=true;
+                    //check if game won
                     ticTacToe_javafx.checkState();
+                    playCount ++;
                     
                 }
             }

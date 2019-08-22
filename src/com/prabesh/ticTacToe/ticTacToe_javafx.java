@@ -12,6 +12,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -27,8 +28,8 @@ public class ticTacToe_javafx extends Application
     private gameTile[][] tiles= new gameTile[3][3];
     private static List<checkWinner> gameState = new ArrayList<>();
     private Pane root = new Pane();
+    private static Stage stage = new Stage();
     private Parent newGame()
-    
     {
         root.setPrefSize(600,600);
         //create 3*3 tile objects for the tic-tac-toe
@@ -64,21 +65,86 @@ public class ticTacToe_javafx extends Application
     }
     
     public static void checkState() 
-    {
-        for (checkWinner pairs : gameState) {
+    {        for (checkWinner pairs : gameState) {
             if (pairs.isComplete()) {
                 gameTile.playable = false;
-                System.exit(0);
-                break;
+                checkTurn newCheck = new checkTurn();
+                System.out.println("============>"+newCheck.getTurn());
+               // System.exit(0);
+               if (newCheck.getTurn()==true)
+               {    
+                endGame(0);
+               
+               }
+               else
+               {    
+                endGame(1);
+               } 
+               break;
             }
         }
+        //System.out.println("============>"+gameTile.playCount);
+        if (gameTile.playCount==8)
+        {
+   
+               endGame(2);
+        }
+    }
+    
+    public static void endGame(int res)
+    {
+       stage.hide();
+       Label label = new Label();
+       if (res==0)
+       {
+            label.setText("Second Player(0) won!!");
+       }
+       else if (res==1)
+       {
+            label.setText("First Player(Y) won!!");
+       }
+       else if (res==2)
+       {
+            label.setText("Draw!!");
+       }
+        
+       Button close = new Button();
+       close.setText("Quit");
+        
+        close.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) 
+            {
+                System.exit(0);
+            }
+        });
+        VBox root = new VBox(25);
+        root.setAlignment(Pos.CENTER);
+        root.setFillWidth(false);
+      
+        
+        
+        Scene scene = new Scene(root, 200, 200);
+      //  scene.getStylesheets().add(getClass().getResource("design_css.css").toExternalForm());
+
+          root.getChildren().add(label);
+
+          root.getChildren().add(close);
+
+          //stage setup and show
+        stage.setTitle("GoodGame!");
+        stage.setScene(scene);
+        stage.sizeToScene();
+        stage.show();
+        
     }
     
     
     
     public void playGame()
     {
-       Stage stage = new Stage();
+       
        checkTurn turn = new checkTurn();
        turn.setTurn(true);
        Scene gameScene = new Scene(newGame());
