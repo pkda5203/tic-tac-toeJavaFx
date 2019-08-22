@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package com.prabesh.ticTacToe;
-
+import java.util.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,8 +12,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -26,10 +24,12 @@ import javafx.stage.Stage;
 public class ticTacToe_javafx extends Application 
 {
     
-    
+    private gameTile[][] tiles= new gameTile[3][3];
+    private static List<checkWinner> gameState = new ArrayList<>();
+    private Pane root = new Pane();
     private Parent newGame()
+    
     {
-        Pane root = new Pane();
         root.setPrefSize(600,600);
         //create 3*3 tile objects for the tic-tac-toe
         for (int i=0; i<3; i++)
@@ -41,12 +41,37 @@ public class ticTacToe_javafx extends Application
                 tile.setTranslateX(j*200);
                 tile.setTranslateY(i*200);
                 root.getChildren().add(tile);
-                
+                tiles[j][i]=tile;
             }
         }
+        
+        // check horizontal
+        for (int y = 0; y < 3; y++) {
+            gameState.add(new checkWinner(tiles[0][y], tiles[1][y], tiles[2][y]));
+        }
+
+        // check vertical
+        for (int x = 0; x < 3; x++) {
+            gameState.add(new checkWinner(tiles[x][0], tiles[x][1], tiles[x][2]));
+        }
+
+        // check diagonals
+        gameState.add(new checkWinner(tiles[0][0], tiles[1][1], tiles[2][2]));
+        gameState.add(new checkWinner(tiles[2][0], tiles[1][1], tiles[0][2]));
             
         return root;
         
+    }
+    
+    public static void checkState() 
+    {
+        for (checkWinner pairs : gameState) {
+            if (pairs.isComplete()) {
+                gameTile.playable = false;
+                System.exit(0);
+                break;
+            }
+        }
     }
     
     

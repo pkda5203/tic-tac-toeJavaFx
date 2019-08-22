@@ -22,6 +22,8 @@ public class gameTile extends StackPane
 {
     
     private Text draw = new Text();
+    private boolean drawn=false;
+    public static boolean playable = true;
     
     public gameTile(){
 
@@ -32,24 +34,28 @@ public class gameTile extends StackPane
         border.setStroke(Color.BLACK);
         setAlignment(Pos.CENTER);
         getChildren().addAll(border, draw);
-       checkTurn turn = new checkTurn();
+        checkTurn turn = new checkTurn();
         
         setOnMouseClicked(event -> {
-            if (event.getButton()==MouseButton.PRIMARY)
+            if ((event.getButton()==MouseButton.PRIMARY)&&drawn==false)
             {   
                 //if x turn
                 if (turn.getTurn()==true)
                 {
                     drawX();
-                    //change to o turn
+                    //change to o turn and prevent redraw   
                     turn.setTurn(false);
+                    drawn=true;
+                    ticTacToe_javafx.checkState();
                 }
                 //if O turn
                 else
                 {
                     drawO();
-                    //chane to x turn
+                    //chane to x turn and prevent redraw
                     turn.setTurn(true);
+                    drawn=true;
+                    ticTacToe_javafx.checkState();
                     
                 }
             }
@@ -68,6 +74,11 @@ public class gameTile extends StackPane
         draw.setText("O");
         draw.setFont(Font.font(80));
     }
-        
+    
+    public String getValue() 
+    {
+        return draw.getText();
+    }
+
     
 }
